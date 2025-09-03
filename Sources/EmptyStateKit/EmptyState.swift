@@ -8,11 +8,11 @@
 import UIKit
 
 public struct EmptyState {
-    public let image: UIImage?
-    public let title: String?
-    public let message: String?
-    public let buttonTitle: String?
-    public let buttonAction: (() -> Void)?
+    public var image: UIImage?
+    public var title: String?
+    public var message: String?
+    public var buttonTitle: String?
+    public var buttonAction: (() -> Void)?
 
     public init(
         image: UIImage? = nil,
@@ -28,3 +28,4 @@ public struct EmptyState {
         self.buttonAction = buttonAction
     }
 }
+

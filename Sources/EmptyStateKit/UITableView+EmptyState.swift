@@ -7,21 +7,29 @@
 
 import UIKit
 import ObjectiveC.runtime
-@MainActor
-private var prevSeparatorKey: UInt8 = 0
-@MainActor
+
+private enum _ESKAssocKeys { static var prevSeparatorKey: UInt8 = 0 }
+
 public extension UITableView {
     func setEmptyState(_ state: EmptyState?) {
-        if let state {
-            let view = EmptyStateView(config: state)
-            backgroundView = view
-            objc_setAssociatedObject(self, &prevSeparatorKey, separatorStyle.rawValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            separatorStyle = .none
+        if let state = state {
+            let v = EmptyStateView(config: state)
+            v.frame = bounds
+            v.autoresizingMask = [.flexibleWidth, .flexibleHeight]   // <- important
+            UIView.performWithoutAnimation {
+                backgroundView = v
+                objc_setAssociatedObject(self, &_ESKAssocKeys.prevSeparatorKey,
+                                         separatorStyle.rawValue,
+                                         .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                separatorStyle = .none
+            }
         } else {
-            backgroundView = nil
-            if let raw = objc_getAssociatedObject(self, &prevSeparatorKey) as? Int,
-               let prev = UITableViewCell.SeparatorStyle(rawValue: raw) {
-                separatorStyle = prev
+            UIView.performWithoutAnimation {
+                backgroundView = nil
+                if let raw = objc_getAssociatedObject(self, &_ESKAssocKeys.prevSeparatorKey) as? Int,
+                   let prev = UITableViewCell.SeparatorStyle(rawValue: raw) {
+                    separatorStyle = prev
+                }
             }
         }
     }
@@ -30,3 +38,6 @@ public extension UITableView {
         setEmptyState(isEmpty ? state : nil)
     }
 }
+
+
+

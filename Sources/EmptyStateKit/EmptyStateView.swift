@@ -7,62 +7,67 @@
 
 import UIKit
 
-final class EmptyStateView: UIView {
+public final class EmptyStateView: UIView {
     private let stack = UIStackView()
+    private let imageView = UIImageView()
+    private let titleLabel = UILabel()
+    private let messageLabel = UILabel()
+    private let button = UIButton(type: .system)
 
-    init(config: EmptyState) {
+    public init(config: EmptyState) {
         super.init(frame: .zero)
-        setup(config)
+        setup()
+        apply(config: config)
     }
-    required init?(coder: NSCoder) { nil }
 
-    private func setup(_ config: EmptyState) {
-        backgroundColor = .clear
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
-        let imageView = config.image.map { img -> UIImageView in
-            let iv = UIImageView(image: img)
-            iv.contentMode = .scaleAspectFit
-            iv.tintColor = .tertiaryLabel
-            return iv
+    public func apply(config: EmptyState) {
+        imageView.image = config.image
+        titleLabel.text = config.title
+        messageLabel.text = config.message
+        if let t = config.buttonTitle {
+            button.setTitle(t, for: .normal)
+            button.isHidden = false
+        } else {
+            button.isHidden = true
         }
+        // replace previous action
+        button.removeTarget(nil, action: nil, for: .allEvents)
+        if let action = config.buttonAction {
+            button.addAction(UIAction { _ in action() }, for: .touchUpInside)
+        }
+    }
 
-        let title = UILabel()
-        title.text = config.title
-        title.font = .preferredFont(forTextStyle: .headline)
-        title.textAlignment = .center
-
-        let msg = UILabel()
-        msg.text = config.message
-        msg.font = .preferredFont(forTextStyle: .subheadline)
-        msg.textColor = .secondaryLabel
-        msg.numberOfLines = 0
-        msg.textAlignment = .center
+    private func setup() {
+        backgroundColor = .clear
 
         stack.axis = .vertical
         stack.alignment = .center
         stack.spacing = 8
+        stack.translatesAutoresizingMaskIntoConstraints = false
 
-        if let iv = imageView { stack.addArrangedSubview(iv) }
-        stack.addArrangedSubview(title)
-        stack.addArrangedSubview(msg)
+        imageView.tintColor = .secondaryLabel
+        titleLabel.font = .preferredFont(forTextStyle: .headline)
+        titleLabel.textAlignment = .center
 
-        if let title = config.buttonTitle {
-            let button = UIButton(type: .system)
-            button.setTitle(title, for: .normal)
-            if let action = config.buttonAction {
-                button.addAction(UIAction { _ in action() }, for: .touchUpInside)
-            }
-            stack.addArrangedSubview(button)
-        }
+        messageLabel.font = .preferredFont(forTextStyle: .subheadline)
+        messageLabel.textColor = .secondaryLabel
+        messageLabel.numberOfLines = 0
+        messageLabel.textAlignment = .center
+
+        stack.addArrangedSubview(imageView)
+        stack.addArrangedSubview(titleLabel)
+        stack.addArrangedSubview(messageLabel)
+        stack.addArrangedSubview(button)
 
         addSubview(stack)
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        layoutMargins = UIEdgeInsets(top: 24, left: 24, bottom: 24, right: 24)
         NSLayoutConstraint.activate([
-            stack.centerXAnchor.constraint(equalTo: centerXAnchor),
-            stack.centerYAnchor.constraint(equalTo: centerYAnchor),
+            stack.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            stack.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
             stack.leadingAnchor.constraint(greaterThanOrEqualTo: layoutMarginsGuide.leadingAnchor),
             stack.trailingAnchor.constraint(lessThanOrEqualTo: layoutMarginsGuide.trailingAnchor)
         ])
     }
 }
+
