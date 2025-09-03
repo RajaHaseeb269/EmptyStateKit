@@ -2,19 +2,21 @@
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 // swift-tools-version: 5.9
+
 import PackageDescription
 
 let package = Package(
     name: "EmptyStateKit",
-    platforms: [.iOS("13.0")],
+   // platforms: [.iOS("13.0")],
+    platforms: [.iOS("14.0")],
     products: [
-        // Consumers will import `EmptyStateKit`
         .library(name: "EmptyStateKit", targets: ["EmptyStateKit"])
     ],
     targets: [
-        // Keep your current folder name but expose the module name `EmptyStateKit`
-        .target(name: "EmptyStateKit", path: "Sources/EmptyStateKit-SPM")
-        // (You can add tests later)
+        // default path = Sources/<target-name> = Sources/EmptyStateKit
+        .target(name: "EmptyStateKit")
     ]
 )
+
+
 
