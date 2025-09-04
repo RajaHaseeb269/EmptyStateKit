@@ -25,6 +25,7 @@ Zero dependencies. Straightforward API. Example app included.
 Paste this URL:  https://github.com/RajaHaseeb269/EmptyStateKit
 
 // Package.swift (for projects adding the dependency manually)
+
 .package(url: "https://github.com/RajaHaseeb269/EmptyStateKit.git", from: "0.1.0")
 
 ---
