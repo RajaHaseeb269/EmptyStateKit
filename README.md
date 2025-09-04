@@ -55,9 +55,12 @@ collectionView.updateEmptyStateIfNeeded(
     )
 )
 
+---
+
 Tip: If your screen uses a tab bar, you may prefer to set
 tableView.contentInsetAdjustmentBehavior = .never (or the same for collectionView) to keep layout consistent on first display.
 
+---
 
 #Example App
 
@@ -68,19 +71,24 @@ Friends (UITableView) — empty state with a button
 
 Photos (UICollectionView) — text-only empty state
 
+---
+
 Requirements
 
 iOS 14+
 
 Xcode 15+ / Swift 5.x
 
+---
+
 License
 
 MIT – see LICENSE.
 
+---
+
 About
 
 This is a small, focused utility built to keep empty-state code out of your view controllers and make behavior consistent across screens. PRs and suggestions are welcome.
-
 
 If you paste this as-is, alignment and formatting will look great on GitHub.
