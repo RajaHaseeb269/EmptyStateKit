@@ -24,7 +24,6 @@ Zero dependencies. Straightforward API. Example app included.
 **Xcode → File → Add Packages…**  
 Paste this URL:  https://github.com/RajaHaseeb269/EmptyStateKit
 
-
 ---
 
 ## Quick Start
@@ -33,8 +32,7 @@ Paste this URL:  https://github.com/RajaHaseeb269/EmptyStateKit
 import EmptyStateKit
 
 // Show or hide an empty state based on your data:
-
-For TableView :
+//For TableView :
 tableView.updateEmptyStateIfNeeded(
     isEmpty: items.isEmpty,
     state: EmptyState(
@@ -45,7 +43,10 @@ tableView.updateEmptyStateIfNeeded(
         buttonAction: { /* your action */ }
     )
 )
-For CollectionView :
+```
+```swift
+import EmptyStateKit
+//For CollectionView :
 collectionView.updateEmptyStateIfNeeded(
     isEmpty: photos.isEmpty,
     state: EmptyState(
@@ -54,7 +55,7 @@ collectionView.updateEmptyStateIfNeeded(
         message: "Import or add a photo."
     )
 )
-
+```
 ---
 
 Tip: If your screen uses a tab bar, you may prefer to set
@@ -62,7 +63,7 @@ tableView.contentInsetAdjustmentBehavior = .never (or the same for collectionVie
 
 ---
 
-#Example App
+**Example App**
 
 Open Examples/EmptyStateDemo and run.
 It shows:
@@ -81,9 +82,9 @@ Xcode 15+ / Swift 5.x
 
 ---
 
-License
+## License
 
-MIT – see LICENSE.
+This project is released under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
