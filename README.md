@@ -62,7 +62,7 @@ collectionView.updateEmptyStateIfNeeded(
 ```
 ---
 
-Tip: If your screen uses a tab bar, you may prefer to set
+**Tip:**  If your screen uses a tab bar, you may prefer to set
 tableView.contentInsetAdjustmentBehavior = .never (or the same for collectionView) to keep layout consistent on first display.
 
 ---
