@@ -13,6 +13,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let tab = self?.window?.rootViewController as? UITabBarController,
+                  let vcs = tab.viewControllers, vcs.count >= 2 else { return }
+
+            vcs[0].tabBarItem = UITabBarItem(title: "Friends",
+                                             image: UIImage(systemName: "person.3"),
+                                             selectedImage: UIImage(systemName: "person.3.fill"))
+            vcs[1].tabBarItem = UITabBarItem(title: "Photos",
+                                             image: UIImage(systemName: "photo"),
+                                             selectedImage: UIImage(systemName: "photo.fill"))
+
+            // TintColor
+            tab.tabBar.tintColor = .systemBlue
+            tab.tabBar.unselectedItemTintColor = .secondaryLabel
+
+            // Ensure a valid initial tab
+            if tab.selectedIndex < 0 { tab.selectedIndex = 0 }
+        }
+        
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
