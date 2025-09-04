@@ -24,6 +24,9 @@ Zero dependencies. Straightforward API. Example app included.
 **Xcode → File → Add Packages…**  
 Paste this URL:  https://github.com/RajaHaseeb269/EmptyStateKit
 
+// Package.swift (for projects adding the dependency manually)
+.package(url: "https://github.com/RajaHaseeb269/EmptyStateKit.git", from: "0.1.0")
+
 ---
 
 ## Quick Start
@@ -32,7 +35,7 @@ Paste this URL:  https://github.com/RajaHaseeb269/EmptyStateKit
 import EmptyStateKit
 
 // Show or hide an empty state based on your data:
-//For TableView :
+//For UITableView :
 tableView.updateEmptyStateIfNeeded(
     isEmpty: items.isEmpty,
     state: EmptyState(
@@ -46,7 +49,7 @@ tableView.updateEmptyStateIfNeeded(
 ```
 ```swift
 import EmptyStateKit
-//For CollectionView :
+//For UICollectionView :
 collectionView.updateEmptyStateIfNeeded(
     isEmpty: photos.isEmpty,
     state: EmptyState(
@@ -65,12 +68,9 @@ tableView.contentInsetAdjustmentBehavior = .never (or the same for collectionVie
 
 **Example App**
 
-Open Examples/EmptyStateDemo and run.
-It shows:
-
-Friends (UITableView) — empty state with a button
-
-Photos (UICollectionView) — text-only empty state
+Open `Examples/EmptyStateDemo` and run. It contains:
+- Friends (UITableView) — empty state with a button
+- Photos (UICollectionView) — text-only empty state
 
 ---
 
